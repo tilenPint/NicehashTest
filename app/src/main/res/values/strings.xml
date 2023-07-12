@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">NicehashTest</string>
+    <string name="accumulator_title">Accumulator</string>
+    <string name="passport_title">Passport</string>
+
+    <string name="test1_title">Accumulator Long Test</string>
+    <string name="test1_short_title">Accumulator Short Test</string>
+
+    <string name="result">Result</string>
+</resources>
