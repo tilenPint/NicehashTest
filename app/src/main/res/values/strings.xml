@@ -3,8 +3,13 @@
     <string name="accumulator_title">Accumulator</string>
     <string name="passport_title">Passport</string>
 
-    <string name="test1_title">Accumulator Long Test</string>
-    <string name="test1_short_title">Accumulator Short Test</string>
+    <string name="accumulator_test1_title">Accumulator Long Test</string>
+    <string name="accumulator_test1_short_title">Accumulator Short Test</string>
+
+    <string name="passport_test2_title">Passport Long Test</string>
+    <string name="passport_test2_short_title">Passport Short Test</string>
 
     <string name="result">Result</string>
+    <string name="result_single_thread">Result for Single Thread</string>
+    <string name="result_multi_threads">Result for Multithreading</string>
 </resources>

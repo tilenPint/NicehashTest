@@ -13,11 +13,9 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,11 +26,7 @@ import com.example.nicehashtest.component.BaseDropdownMenuBox
 import com.example.nicehashtest.component.BaseScaffold
 import com.example.nicehashtest.component.BaseTopBar
 import com.example.nicehashtest.component.TitleText
-import com.example.nicehashtest.data.AccumulatorTest
-import com.example.nicehashtest.data.getData
-import com.example.nicehashtest.data.getDataTitle
-import com.example.nicehashtest.logic.read.readTextFileFromResources
-import kotlinx.coroutines.launch
+import com.example.nicehashtest.data.TestSpec
 
 @Composable
 fun AccumulatorScreen(
@@ -40,28 +34,6 @@ fun AccumulatorScreen(
     navigateToBack: () -> Unit,
 ) {
     val viewState = viewModel.uiState.collectAsState().value
-    val context = LocalContext.current
-
-    LaunchedEffect(Unit) {
-        // to trigger when screen is created
-        val fileResult = context.readTextFileFromResources(viewState.data.getData())
-        viewModel.onTriggerEvent(AccumulatorViewEvent.GetResult(fileResult))
-    }
-
-    LaunchedEffect(viewModel.uiEvent) {
-        launch {
-            viewModel.uiEvent.collect {
-                when (it) {
-                    is AccumulatorViewEvent.ChangeTestData -> {
-                        val fileResult = context.readTextFileFromResources(it.data.getData())
-                        viewModel.onTriggerEvent(AccumulatorViewEvent.GetResult(fileResult))
-                    }
-
-                    else -> {}
-                }
-            }
-        }
-    }
 
     BaseScaffold(topBar = {
         BaseTopBar(
@@ -69,7 +41,7 @@ fun AccumulatorScreen(
             actionNavigation = navigateToBack,
             actions = {
                 BaseDropdownMenuBox(
-                    AccumulatorTest.values().map { it.name },
+                    TestSpec.values().map { it.name },
                     viewState.data.name,
                 ) {
                     viewModel.onTriggerEvent(AccumulatorViewEvent.ChangeTestData(enumValueOf(it)))
@@ -94,8 +66,8 @@ private fun Content(data: AccumulatorState) {
             .padding(top = 24.dp),
     ) {
         TitleText(
-            modifier = Modifier.fillMaxWidth(),
-            text = stringResource(id = data.data.getDataTitle()),
+            modifier = Modifier.fillMaxWidth().testTag("title"),
+            text = stringResource(id = data.dataTitleRes),
         )
         Spacer(modifier = Modifier.padding(top = 16.dp))
         Text(

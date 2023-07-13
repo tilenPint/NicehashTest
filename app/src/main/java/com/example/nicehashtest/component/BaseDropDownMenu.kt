@@ -55,7 +55,7 @@ fun BaseDropdownMenuBox(data: List<String>, selectedItem: String, selected: (Str
 
 @Preview
 @Composable
-fun Demo_ExposedDropdownMenuBoxPreview() {
+fun BaseDropdownMenuBoxPreview() {
     BaseDropdownMenuBox(
         listOf("Americano", "Cappuccino", "Espresso", "Latte", "Mocha"),
         "Americano",

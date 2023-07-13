@@ -1,3 +1,9 @@
 package com.example.nicehashtest.screen.accumulator
 
-class FakeViewModel : AccumulatorViewModel()
+import com.example.nicehashtest.api.AccumulatorRepository
+import com.example.nicehashtest.api.ReadFileRepository
+
+class FakeViewModel(
+    readFileRepository: ReadFileRepository,
+    accumulatorRepository: AccumulatorRepository,
+) : AccumulatorViewModel(readFileRepository, accumulatorRepository)
