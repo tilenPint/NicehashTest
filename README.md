@@ -6,6 +6,7 @@
 [![Kotlin](https://img.shields.io/badge/Kotlin-1.8.22-blue.svg?logo=kotlin)](http://kotlinlang.org)
 ![Gradle](https://img.shields.io/badge/gradle-8.0-blue.svg?)
 [![Android Studio](https://img.shields.io/badge/Android_Sudio-2022.2.1_Patch_2-green.svg?)](https://developer.android.com/studio)
+![Windows](https://badgen.net/badge/Windows/10/blue/)
 
 <p align="center">
  <img src="docs/accumulator_screen.png" width="25%"/>
