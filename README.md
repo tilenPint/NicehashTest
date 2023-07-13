@@ -16,6 +16,7 @@
 
 * [About the Project](#about-the-project)
 * [Features](#features)
+  * [How To](#how-to)
 * [Test](#test)
   * [Results](#results)
 
@@ -26,6 +27,13 @@ App made with kotlin using Jetpack Compose.
 - Users can test two algorithms.
 - User can change which test data want to use
 - User can manually change data
+
+### How to
+- Select on home page which test you want to use
+- When on test in right upper corner you can select which data (long or short) you want to use
+- You can manually change data
+- When you are happy with changes click on FAB to trigger changes
+
 
 ## Test
   - androidTest for both screens
