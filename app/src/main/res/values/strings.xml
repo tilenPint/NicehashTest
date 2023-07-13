@@ -10,6 +10,8 @@
     <string name="passport_test2_short_title">Passport Short Test</string>
 
     <string name="result">Result</string>
-    <string name="result_single_thread">Result for Single Thread</string>
-    <string name="result_multi_threads">Result for Multithreading</string>
+    <string name="result_single_thread">Result\nfor Single Thread</string>
+    <string name="result_multi_threads">Result\nfor Multithreading</string>
+    <string name="result_time_title">Time</string>
+    <string name="result_time_ms">%1$d ms</string>
 </resources>

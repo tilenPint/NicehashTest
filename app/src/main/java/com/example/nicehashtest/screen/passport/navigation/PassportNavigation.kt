@@ -15,8 +15,8 @@ fun NavController.navigationPassport(
     navigate(passportRuteNavigation, navOptions)
 }
 
-fun NavGraphBuilder.passportScreen() {
+fun NavGraphBuilder.passportScreen(navigateToBack: () -> Unit) {
     composable(passportRuteNavigation) {
-        PassportScreen(hiltViewModel())
+        PassportScreen(hiltViewModel(), navigateToBack)
     }
 }

@@ -2,8 +2,10 @@ package com.example.nicehashtest.di
 
 import android.content.Context
 import com.example.nicehashtest.api.AccumulatorRepository
+import com.example.nicehashtest.api.PassportRepository
 import com.example.nicehashtest.api.ReadFileRepository
 import com.example.nicehashtest.data.repository.AccumulatorRepositoryImpl
+import com.example.nicehashtest.data.repository.PassportRepositoryImpl
 import com.example.nicehashtest.data.repository.ReadFileRepositoryImpl
 import dagger.Module
 import dagger.Provides
@@ -21,4 +23,7 @@ class AppModule {
 
     @Provides
     fun provideAccumulatorRepository(): AccumulatorRepository = AccumulatorRepositoryImpl()
+
+    @Provides
+    fun providePassportRepository(): PassportRepository = PassportRepositoryImpl()
 }

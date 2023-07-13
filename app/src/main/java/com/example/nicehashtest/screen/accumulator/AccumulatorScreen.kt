@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
@@ -69,15 +68,8 @@ private fun Content(data: AccumulatorState) {
             modifier = Modifier.fillMaxWidth().testTag("title"),
             text = stringResource(id = data.dataTitleRes),
         )
+
         Spacer(modifier = Modifier.padding(top = 16.dp))
-        Text(
-            modifier = Modifier
-                .fillMaxWidth()
-                .sizeIn(maxHeight = 300.dp)
-                .verticalScroll(scroll),
-            text = data.fileText,
-        )
-        Spacer(modifier = Modifier.padding(top = 24.dp))
 
         TitleText(
             modifier = Modifier.fillMaxWidth(),
@@ -97,6 +89,13 @@ private fun Content(data: AccumulatorState) {
                 text = data.fileResult.toString(),
             )
         }
+        Spacer(modifier = Modifier.padding(top = 16.dp))
+        Text(
+            modifier = Modifier
+                .fillMaxWidth()
+                .verticalScroll(scroll),
+            text = data.fileText,
+        )
     }
 }
 

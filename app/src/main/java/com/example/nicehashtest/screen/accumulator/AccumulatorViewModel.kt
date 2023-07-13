@@ -46,5 +46,4 @@ open class AccumulatorViewModel @Inject constructor(
 
 sealed class AccumulatorViewEvent : IViewEvent {
     data class ChangeTestData(val data: TestSpec) : AccumulatorViewEvent()
-//    data class GetResult(val data: String) : AccumulatorViewEvent()
 }

@@ -1,4 +1,4 @@
-package com.example.nicehashtest.logic.accumulator.data
+package com.example.nicehashtest.data
 
 data class Instruction(
     val operation: String,
