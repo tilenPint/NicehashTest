@@ -9,22 +9,14 @@ internal class PassportRepositoryImplTest {
 
     @Test
     internal fun `single thread`() {
-        // WHEN
-        val result = repo.getResultSingleThread(testData)
-
-        // THEN
-        result.size shouldBe 2
+        repo.getResultSingleThread(testData).size shouldBe 2
     }
 
     @Test
     internal fun `multi thread`() {
-        // WHEN
-        val result = runBlocking {
-            repo.getResultMultiThread(testData)
-        }
-
-        // THEN
-        result.size shouldBe 2
+        runBlocking {
+            repo.getResultMultiThread(testData).size
+        } shouldBe 2
     }
 }
 

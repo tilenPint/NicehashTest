@@ -114,7 +114,7 @@ private fun Content(data: PassportState, triggerEvent: (PassportViewEvent) -> Un
             .padding(top = 24.dp),
     ) {
         TitleText(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().testTag("title"),
             text = stringResource(id = data.dataTitleRes),
         )
         Spacer(modifier = Modifier.padding(top = 16.dp))

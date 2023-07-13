@@ -15,8 +15,7 @@ import kotlin.system.measureTimeMillis
 class PassportViewModel @Inject constructor(
     private val readFileRepository: ReadFileRepository,
     private val passportRepository: PassportRepository,
-) :
-    BaseViewModel<PassportState, PassportViewEvent>() {
+) : BaseViewModel<PassportState, PassportViewEvent>() {
 
     init {
         viewModelScope.launch {

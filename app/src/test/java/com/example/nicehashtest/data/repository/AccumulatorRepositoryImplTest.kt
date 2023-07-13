@@ -8,11 +8,7 @@ internal class AccumulatorRepositoryImplTest {
 
     @Test
     internal fun `accumulation should be 5`() {
-        // WHEN
-        val result = repo.getResult(testData)
-
-        // THEN
-        result shouldBe 5
+        repo.getResult(testData) shouldBe 5
     }
 }
 
