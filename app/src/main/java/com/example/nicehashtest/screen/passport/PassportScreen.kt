@@ -10,15 +10,26 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -28,6 +39,7 @@ import com.example.nicehashtest.component.BaseScaffold
 import com.example.nicehashtest.component.BaseTopBar
 import com.example.nicehashtest.component.TitleText
 import com.example.nicehashtest.data.TestSpec
+import kotlinx.coroutines.launch
 
 @Composable
 fun PassportScreen(
@@ -35,29 +47,64 @@ fun PassportScreen(
     navigateToBack: () -> Unit,
 ) {
     val viewState = viewModel.uiState.collectAsState().value
+    val snackbarHostState = remember { SnackbarHostState() }
+    val context = LocalContext.current
 
-    BaseScaffold(topBar = {
-        BaseTopBar(
-            text = stringResource(id = R.string.passport_title),
-            actionNavigation = navigateToBack,
-            actions = {
-                BaseDropdownMenuBox(
-                    TestSpec.values().map { it.name },
-                    viewState.data.name,
-                ) {
-                    viewModel.onTriggerEvent(PassportViewEvent.ChangeTestData(enumValueOf(it)))
+    LaunchedEffect(viewModel.uiEvent) {
+        launch {
+            viewModel.uiEvent.collect {
+                when (it) {
+                    PassportViewEvent.ShowError -> {
+                        snackbarHostState.showSnackbar(context.getString(R.string.error_parse))
+                    }
+
+                    else -> {}
                 }
-            },
-        )
-    }) {
+            }
+        }
+    }
+
+    BaseScaffold(
+        topBar = {
+            BaseTopBar(
+                text = stringResource(id = R.string.passport_title),
+                actionNavigation = navigateToBack,
+                actions = {
+                    BaseDropdownMenuBox(
+                        TestSpec.values().map { it.name },
+                        viewState.data.name,
+                    ) {
+                        viewModel.onTriggerEvent(PassportViewEvent.ChangeTestData(enumValueOf(it)))
+                    }
+                },
+            )
+        },
+        floatingActionButton = {
+            FloatingActionButton(onClick = {
+                viewModel.onTriggerEvent(
+                    PassportViewEvent.ChangeTestData(viewState.data),
+                )
+            }) {
+                Icon(
+                    imageVector = Icons.Default.Refresh,
+                    contentDescription = "refresh",
+                )
+            }
+        },
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState)
+        },
+    ) {
         Box(modifier = Modifier.padding(it)) {
-            Content(viewState)
+            Content(viewState) {
+                viewModel.onTriggerEvent(it)
+            }
         }
     }
 }
 
 @Composable
-private fun Content(data: PassportState) {
+private fun Content(data: PassportState, triggerEvent: (PassportViewEvent) -> Unit) {
     val scroll = rememberScrollState(0)
 
     Column(
@@ -88,11 +135,15 @@ private fun Content(data: PassportState) {
             )
         }
         Spacer(modifier = Modifier.padding(top = 16.dp))
-        Text(
+        TextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .verticalScroll(scroll),
-            text = data.fileText,
+            value = data.valueText,
+            onValueChange = { triggerEvent(PassportViewEvent.OnDataChange(it)) },
+            textStyle = LocalTextStyle.current.copy(
+                fontFamily = FontFamily.Monospace,
+            ),
         )
         Spacer(modifier = Modifier.padding(top = 24.dp))
     }

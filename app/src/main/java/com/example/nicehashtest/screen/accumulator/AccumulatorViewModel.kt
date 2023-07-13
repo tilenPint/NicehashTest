@@ -34,14 +34,14 @@ open class AccumulatorViewModel @Inject constructor(
                         val readFile = if (dataFileRes != null) {
                             readFileRepository.readFile(dataFileRes)
                         } else {
-                            currentState.fileText
+                            currentState.valueText
                         }
                         val result = accumulatorRepository.getResult(readFile)
                         setState {
                             currentState.copy(
                                 fileResult = result,
                                 isLoading = false,
-                                fileText = readFile,
+                                valueText = readFile,
                             )
                         }
                     } catch (e: Exception) {
@@ -51,7 +51,7 @@ open class AccumulatorViewModel @Inject constructor(
                 }
 
                 is AccumulatorViewEvent.OnDataChange -> {
-                    setState { currentState.copy(data = TestSpec.MANUAL, fileText = event.data) }
+                    setState { currentState.copy(data = TestSpec.MANUAL, valueText = event.data) }
                 }
 
                 else -> {}

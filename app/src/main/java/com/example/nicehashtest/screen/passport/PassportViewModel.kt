@@ -30,35 +30,59 @@ class PassportViewModel @Inject constructor(
         viewModelScope.launch {
             when (event) {
                 is PassportViewEvent.ChangeTestData -> {
-                    setState {
-                        currentState.copy(
-                            isLoadingSingle = true,
-                            isLoadingMulti = true,
-                            data = event.data,
-                        )
-                    }
-
-                    val dataFileRes = currentState.dataFileNameRes
-                    val readFile = readFileRepository.readFile(dataFileRes!!)
-
-                    setState { currentState.copy(fileText = readFile) }
-
-                    viewModelScope.launch {
-                        val time = measureTimeMillis {
-                            val validCount = passportRepository.getResultSingleThread(readFile)
-                            setState { currentState.copy(fileResultSingle = validCount.size) }
+                    try {
+                        setState {
+                            currentState.copy(
+                                isLoadingSingle = true,
+                                isLoadingMulti = true,
+                                data = event.data,
+                            )
                         }
-                        setState { currentState.copy(isLoadingSingle = false, timeMsSingle = time) }
-                    }
 
-                    viewModelScope.launch {
-                        val time = measureTimeMillis {
-                            val validCount = passportRepository.getResultMultiThread(readFile)
-                            setState { currentState.copy(fileResultMulti = validCount.size) }
+                        val dataFileRes = currentState.dataFileNameRes
+                        val readFile = if (dataFileRes != null) {
+                            readFileRepository.readFile(dataFileRes)
+                        } else {
+                            currentState.valueText
                         }
-                        setState { currentState.copy(isLoadingMulti = false, timeMsMulti = time) }
+
+                        setState { currentState.copy(valueText = readFile) }
+
+                        viewModelScope.launch {
+                            val time = measureTimeMillis {
+                                val validCount = passportRepository.getResultSingleThread(readFile)
+                                setState { currentState.copy(fileResultSingle = validCount.size) }
+                            }
+                            setState {
+                                currentState.copy(
+                                    isLoadingSingle = false,
+                                    timeMsSingle = time,
+                                )
+                            }
+                        }
+
+                        viewModelScope.launch {
+                            val time = measureTimeMillis {
+                                val validCount = passportRepository.getResultMultiThread(readFile)
+                                setState { currentState.copy(fileResultMulti = validCount.size) }
+                            }
+                            setState {
+                                currentState.copy(
+                                    isLoadingMulti = false,
+                                    timeMsMulti = time,
+                                )
+                            }
+                        }
+                    } catch (e: Exception) {
+                        setEvent(PassportViewEvent.ShowError)
                     }
                 }
+
+                is PassportViewEvent.OnDataChange -> {
+                    setState { currentState.copy(data = TestSpec.MANUAL, valueText = event.data) }
+                }
+
+                else -> {}
             }
         }
     }
@@ -66,4 +90,6 @@ class PassportViewModel @Inject constructor(
 
 sealed class PassportViewEvent : IViewEvent {
     data class ChangeTestData(val data: TestSpec) : PassportViewEvent()
+    data class OnDataChange(val data: String) : PassportViewEvent()
+    object ShowError : PassportViewEvent()
 }

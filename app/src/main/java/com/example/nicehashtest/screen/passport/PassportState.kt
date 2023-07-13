@@ -7,7 +7,7 @@ import com.example.nicehashtest.data.getPassportTitle
 
 data class PassportState(
     val data: TestSpec = TestSpec.SHORT_TEST,
-    val fileText: String = "",
+    val valueText: String = "",
     val fileResultSingle: Int? = null,
     val fileResultMulti: Int? = null,
     val timeMsSingle: Long? = null,

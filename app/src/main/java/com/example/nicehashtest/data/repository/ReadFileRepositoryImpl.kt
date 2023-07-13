@@ -15,9 +15,16 @@ class ReadFileRepositoryImpl @Inject constructor(
         val reader = BufferedReader(InputStreamReader(inputStream))
         val stringBuilder = StringBuilder()
         var line: String?
+        var previousLineWasBlank = false
         try {
             while (reader.readLine().also { line = it } != null) {
-                stringBuilder.append(line).append('\n')
+                if (line?.isNotBlank() == true) {
+                    stringBuilder.append(line).append('\n')
+                    previousLineWasBlank = false
+                } else if (!previousLineWasBlank) {
+                    stringBuilder.append('\n')
+                    previousLineWasBlank = true
+                }
             }
         } catch (e: Exception) {
             e.printStackTrace()

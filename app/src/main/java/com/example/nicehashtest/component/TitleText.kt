@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 
 @Composable
@@ -15,6 +16,7 @@ fun TitleText(
     textAlign: TextAlign = TextAlign.Center,
     color: Color = MaterialTheme.colorScheme.secondary,
     style: TextStyle = MaterialTheme.typography.titleLarge,
+    fontWeight: FontWeight = FontWeight.Bold,
 ) {
     Text(
         text = text,
@@ -22,5 +24,6 @@ fun TitleText(
         modifier = modifier,
         color = color,
         style = style,
+        fontWeight = fontWeight,
     )
 }

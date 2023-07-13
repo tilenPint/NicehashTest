@@ -7,7 +7,7 @@ import com.example.nicehashtest.data.getAccumulatorTitle
 
 data class AccumulatorState(
     val data: TestSpec = TestSpec.LONG_TEST,
-    val fileText: String = "",
+    val valueText: String = "",
     val fileResult: Int? = null,
     val isLoading: Boolean = false,
 ) : IViewState {

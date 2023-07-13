@@ -13,6 +13,7 @@ import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -26,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -141,8 +143,12 @@ private fun Content(data: AccumulatorState, triggerEvent: (AccumulatorViewEvent)
             modifier = Modifier
                 .fillMaxWidth()
                 .verticalScroll(scroll),
-            value = data.fileText,
+            value = data.valueText,
             onValueChange = { triggerEvent(AccumulatorViewEvent.OnDataChange(it)) },
+            textStyle = LocalTextStyle.current.copy(
+                fontFamily = FontFamily.Monospace,
+            ),
+
         )
     }
 }
