@@ -37,8 +37,8 @@ App made with kotlin using Jetpack Compose.
 
 
 ## Test
-  - androidTest for both screens
-  - unitTest for repository
+  - androidTest for both screens - [androidTest](https://github.com/tilenPint/NicehashTest/tree/master/app/src/androidTest/java/com/example/nicehashtest)
+  - unitTest for repository - [unitTest](https://github.com/tilenPint/NicehashTest/tree/master/app/src/test/java/com/example/nicehashtest/data/repository)
 
   ### Results
 
