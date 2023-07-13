@@ -11,10 +11,12 @@ import androidx.compose.ui.graphics.Color
 @Composable
 fun BaseScaffold(
     modifier: Modifier = Modifier,
-    topBar: @Composable (() -> Unit) = {},
+    topBar: @Composable () -> Unit = {},
     bottomBar: @Composable () -> Unit = {},
     backgroundColor: Color = MaterialTheme.colorScheme.background,
     contentColor: Color = contentColorFor(backgroundColor),
+    floatingActionButton: @Composable () -> Unit = {},
+    snackbarHost: @Composable () -> Unit = {},
     content: @Composable (PaddingValues) -> Unit,
 ) {
     Scaffold(
@@ -22,6 +24,8 @@ fun BaseScaffold(
         topBar = topBar,
         content = content,
         bottomBar = bottomBar,
+        floatingActionButton = floatingActionButton,
+        snackbarHost = snackbarHost,
         contentColor = contentColor,
     )
 }

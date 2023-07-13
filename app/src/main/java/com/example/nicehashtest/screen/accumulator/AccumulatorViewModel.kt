@@ -28,17 +28,33 @@ open class AccumulatorViewModel @Inject constructor(
         viewModelScope.launch {
             when (event) {
                 is AccumulatorViewEvent.ChangeTestData -> {
-                    setState { currentState.copy(isLoading = true, data = event.data) }
-                    val readFile = readFileRepository.readFile(currentState.dataFileNameRes)
-                    val result = accumulatorRepository.getResult(readFile)
-                    setState {
-                        currentState.copy(
-                            fileResult = result,
-                            isLoading = false,
-                            fileText = readFile,
-                        )
+                    try {
+                        setState { currentState.copy(isLoading = true, data = event.data) }
+                        val dataFileRes = currentState.dataFileNameRes
+                        val readFile = if (dataFileRes != null) {
+                            readFileRepository.readFile(dataFileRes)
+                        } else {
+                            currentState.fileText
+                        }
+                        val result = accumulatorRepository.getResult(readFile)
+                        setState {
+                            currentState.copy(
+                                fileResult = result,
+                                isLoading = false,
+                                fileText = readFile,
+                            )
+                        }
+                    } catch (e: Exception) {
+                        setEvent(AccumulatorViewEvent.ShowError)
+                        setState { currentState.copy(isLoading = false) }
                     }
                 }
+
+                is AccumulatorViewEvent.OnDataChange -> {
+                    setState { currentState.copy(data = TestSpec.MANUAL, fileText = event.data) }
+                }
+
+                else -> {}
             }
         }
     }
@@ -46,4 +62,6 @@ open class AccumulatorViewModel @Inject constructor(
 
 sealed class AccumulatorViewEvent : IViewEvent {
     data class ChangeTestData(val data: TestSpec) : AccumulatorViewEvent()
+    data class OnDataChange(val data: String) : AccumulatorViewEvent()
+    object ShowError : AccumulatorViewEvent()
 }

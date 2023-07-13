@@ -1,6 +1,6 @@
 package com.example.nicehashtest.api
 
 interface PassportRepository {
-    fun getResultSingleThread(data: List<String>): List<String>
-    suspend fun getResultMultiThread(data: List<String>): List<String>
+    fun getResultSingleThread(data: String): List<String>
+    suspend fun getResultMultiThread(data: String): List<String>
 }

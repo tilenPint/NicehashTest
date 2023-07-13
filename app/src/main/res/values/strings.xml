@@ -5,13 +5,17 @@
 
     <string name="accumulator_test1_title">Accumulator Long Test</string>
     <string name="accumulator_test1_short_title">Accumulator Short Test</string>
+    <string name="accumulator_manual_title">Accumulator Manual</string>
 
     <string name="passport_test2_title">Passport Long Test</string>
     <string name="passport_test2_short_title">Passport Short Test</string>
+    <string name="passport_manual_title">Passport Manual</string>
 
     <string name="result">Result</string>
     <string name="result_single_thread">Result\nfor Single Thread</string>
     <string name="result_multi_threads">Result\nfor Multithreading</string>
     <string name="result_time_title">Time</string>
     <string name="result_time_ms">%1$d ms</string>
+
+    <string name="error_parse">Parser Error</string>
 </resources>

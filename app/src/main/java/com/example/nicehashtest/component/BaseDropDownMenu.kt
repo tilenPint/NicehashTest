@@ -20,7 +20,6 @@ import androidx.compose.ui.tooling.preview.Preview
 @Composable
 fun BaseDropdownMenuBox(data: List<String>, selectedItem: String, selected: (String) -> Unit) {
     var expanded by remember { mutableStateOf(false) }
-    var selectedText by remember { mutableStateOf(selectedItem) }
 
     Box {
         IconButton(
@@ -42,11 +41,10 @@ fun BaseDropdownMenuBox(data: List<String>, selectedItem: String, selected: (Str
                     modifier = Modifier.testTag("expandable items"),
                     text = { Text(text = item) },
                     onClick = {
-                        selectedText = item
                         expanded = false
                         selected(item)
                     },
-                    enabled = selectedText != item,
+                    enabled = selectedItem != item,
                 )
             }
         }

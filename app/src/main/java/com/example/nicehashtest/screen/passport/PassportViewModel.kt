@@ -37,19 +37,23 @@ class PassportViewModel @Inject constructor(
                             data = event.data,
                         )
                     }
-                    val readFile = readFileRepository.readFile(currentState.dataFileNameRes)
-                    val passports = readFile.split("\n\n").map { it.replace("\n", " ") }
+
+                    val dataFileRes = currentState.dataFileNameRes
+                    val readFile = readFileRepository.readFile(dataFileRes!!)
+
                     setState { currentState.copy(fileText = readFile) }
+
                     viewModelScope.launch {
                         val time = measureTimeMillis {
-                            val validCount = passportRepository.getResultSingleThread(passports)
+                            val validCount = passportRepository.getResultSingleThread(readFile)
                             setState { currentState.copy(fileResultSingle = validCount.size) }
                         }
                         setState { currentState.copy(isLoadingSingle = false, timeMsSingle = time) }
                     }
+
                     viewModelScope.launch {
                         val time = measureTimeMillis {
-                            val validCount = passportRepository.getResultMultiThread(passports)
+                            val validCount = passportRepository.getResultMultiThread(readFile)
                             setState { currentState.copy(fileResultMulti = validCount.size) }
                         }
                         setState { currentState.copy(isLoadingMulti = false, timeMsMulti = time) }

@@ -7,10 +7,10 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 
 class PassportRepositoryImpl : PassportRepository {
-    override fun getResultSingleThread(data: List<String>): List<String> {
+    override fun getResultSingleThread(data: String): List<String> {
         val resultList = mutableListOf<String>()
 
-        data.forEach { passport ->
+        splitString(data).forEach { passport ->
             val fields = passport.split(" ")
             val fieldKeys = fields.map { it.split(":")[0] }.toSet()
 
@@ -22,9 +22,9 @@ class PassportRepositoryImpl : PassportRepository {
         return resultList
     }
 
-    override suspend fun getResultMultiThread(data: List<String>): List<String> =
+    override suspend fun getResultMultiThread(data: String): List<String> =
         coroutineScope {
-            data.map { passport ->
+            splitString(data).map { passport ->
                 async(Dispatchers.Default) {
                     val fields = passport.split(" ")
                     val fieldKeys = fields.map { it.split(":")[0] }.toSet()
@@ -37,6 +37,9 @@ class PassportRepositoryImpl : PassportRepository {
                 }
             }.awaitAll().filterNotNull()
         }
+
+    private fun splitString(data: String): List<String> =
+        data.split("\n\n").map { it.replace("\n", " ") }
 
     companion object {
         private val REQUIRED_FIELDS = setOf("byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid")
