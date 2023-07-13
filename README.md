@@ -33,11 +33,17 @@ App made with kotlin using Jetpack Compose.
 
   ### Results
 
-- Question 1
+- Question 1 - [Algo](https://github.com/tilenPint/NicehashTest/blob/master/app/src/main/java/com/example/nicehashtest/data/repository/AccumulatorRepositoryImpl.kt)
   - <b>Immediately before any instruction is executed a second time,
     what value is in the accumulator? </b>
   - Result: <b> 1087 </b>
-- Question 2
+- Question 2.1 - [Algo](https://github.com/tilenPint/NicehashTest/blob/master/app/src/main/java/com/example/nicehashtest/data/repository/PassportRepositoryImpl.kt)
   - <b>Count the number of valid passports - those that have all required fields. Treat cid as optional. In
     your batch file, how many passports are valid? </b>
   - Result: <b> 22 </b>
+- Question 2.2
+  - <b>Prepare two solutions, one should be single threaded and the second multithreaded. Test it on a
+      multicore machine and measure execution time difference.</b>
+  - Result: Single threaded is faster then multithreaded usually.
+    - Single threaded time: <b> 18ms </b>
+    - Multithreaded time: <b> 74ms </b>
