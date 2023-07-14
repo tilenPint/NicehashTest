@@ -49,7 +49,7 @@ App made with kotlin using Jetpack Compose.
 - Question 2.1 - [Algo](https://github.com/tilenPint/NicehashTest/blob/master/app/src/main/java/com/example/nicehashtest/data/repository/PassportRepositoryImpl.kt)
   - <b>Count the number of valid passports - those that have all required fields. Treat cid as optional. In
     your batch file, how many passports are valid? </b>
-  - Result: <b> 22 </b>
+  - Result: <b> 15 </b>
 - Question 2.2
   - <b>Prepare two solutions, one should be single threaded and the second multithreaded. Test it on a
       multicore machine and measure execution time difference.</b>
